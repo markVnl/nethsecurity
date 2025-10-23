@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Copyright (C) 2023 Nethesis S.r.l.
 # SPDX-License-Identifier: GPL-2.0-only
@@ -6,7 +6,7 @@
 
 #
 # Create a single ext4 partition on the given device.
-# Paramters:
+# Parameters:
 # - device, like '/dev/sdb'
 #
 
@@ -24,9 +24,16 @@ device=$1
 [ ! -e "/sys/class/block/$(basename "$device")" ] && eerror "Device '$device' is not a block device"
 mount | grep -q "$device" && eerror "Device '$device' is already mounted"
 
+# handle nvme and multimedia cards 
+if [[ "$device" =~ ^/dev/nvme ]] || [[ "$device" =~ ^/dev/mmcblk ]]; then
+  partition="${device}p1"
+else
+  partition="${device}1"
+fi
+
 # cleanup partitions
 dd if=/dev/zero of="$device" bs=512 count=1 conv=notrunc 2>/dev/null
 # create a single ext4 partition
 parted -s -a optimal "$device" mklabel gpt -- mkpart primary  1 -1 >/dev/null
-mkfs.ext4 -q -F -L ns_data "$device"1 >/dev/null
-echo '{"device": "'${device}1'"}'
+mkfs.ext4 -q -F -L ns_data "$partition" >/dev/null
+echo '{"device": "'${partition}'"}'
