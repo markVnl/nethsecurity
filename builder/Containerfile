@@ -29,7 +29,11 @@ RUN apt-get update \
         unzip \
         vim \
         wget \
-        zlib1g-dev
+        zlib1g-dev \
+        python3-setuptools \
+        swig \
+        python3-pyelftools \
+        python3-dev
 
 FROM base AS usign_build
 RUN git clone --depth 1 https://git.openwrt.org/project/usign.git /tmp/usign \
