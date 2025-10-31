@@ -64,6 +64,7 @@ COPY --chown=buildbot:buildbot files files
 COPY --chown=buildbot:buildbot config config
 
 # Build utils and volumes setup
+ARG REPO_URL
 ARG REPO_CHANNEL
 ARG TARGET
 ARG NETHSECURITY_VERSION
