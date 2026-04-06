@@ -13,12 +13,24 @@ source /etc/os-release
 if [ -z "$version" ]; then
     version="$VERSION"
 fi
+# FIXME: probably better to determine target and arch at buildtime
+if [ -z "$OPENWRT_BOARD" ]; then
+    target="x84/64"
+else
+    target=$OPENWRT_BOARD
+fi
+
+if [ -z "$OPENWRT_ARCH" ]; then
+    package_arch="x84_64"
+else
+    package_arch=$OPENWRT_ARCH
+fi
 
 cat << EOF > /etc/opkg/distfeeds.conf
-src/gz nethsecurity_core $base_url/$version/targets/x86/64/packages
-src/gz nethsecurity_base $base_url/$version/packages/x86_64/base
-src/gz nethsecurity_luci $base_url/$version/packages/x86_64/luci
-src/gz nethsecurity_nethsecurity $base_url/$version/packages/x86_64/nethsecurity
-src/gz nethsecurity_packages $base_url/$version/packages/x86_64/packages
-src/gz nethsecurity_routing $base_url/$version/packages/x86_64/routing
+src/gz nethsecurity_core $base_url/$version/targets/$target/packages
+src/gz nethsecurity_base $base_url/$version/packages/$package_arch/base
+src/gz nethsecurity_luci $base_url/$version/packages/$package_arch/luci
+src/gz nethsecurity_nethsecurity $base_url/$version/packages/$package_arch/nethsecurity
+src/gz nethsecurity_packages $base_url/$version/packages/$package_arch/packages
+src/gz nethsecurity_routing $base_url/$version/packages/$package_arch/routing
 EOF
