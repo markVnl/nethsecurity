@@ -9,6 +9,7 @@ set -e
 
 # Set up environment
 nethsecurity_version=${NETHSECURITY_VERSION:?Missing NETHSECURITY_VERSION environment variable}
+repo_url=${REPO_URL:?Missing REPO_URL environment variable}
 repo_channel=${REPO_CHANNEL:?Missing REPO_CHANNEL environment variable}
 target=${TARGET:?Missing TARGET environment variable}
 owrt_version=${OWRT_VERSION:?Missing OWRT_VERSION environment variable}
@@ -34,7 +35,7 @@ CONFIG_VERSION_MANUFACTURER_URL="https://www.nethesis.it"
 CONFIG_VERSION_NUMBER="${nethsecurity_version}"
 CONFIG_VERSION_CODE="${owrt_version}"
 CONFIG_VERSION_PRODUCT="NethSecurity"
-CONFIG_VERSION_REPO="https://updates.nethsecurity.nethserver.org/${repo_channel}/${nethsecurity_version}"
+CONFIG_VERSION_REPO="${repo_url}/${repo_channel}/${nethsecurity_version}"
 CONFIG_VERSION_SUPPORT_URL="https://community.nethserver.org"
 EOF
 cat "config/targets/${target}.conf" >> .config
