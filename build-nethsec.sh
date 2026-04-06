@@ -18,7 +18,6 @@ set +o allexport
 # Check required environment variables
 OWRT_VERSION=${OWRT_VERSION:?Missing OWRT_VERSION environment variable}
 NETHSECURITY_VERSION=${NETHSECURITY_VERSION:?Missing NETHSECURITY_VERSION environment variable}
-REPO_URL=${REPO_URL:-"https://updates.nethsecurity.nethserver.org"}
 REPO_CHANNEL=${REPO_CHANNEL:-dev}
 TARGET=${TARGET:-x86_64}
 
@@ -36,7 +35,6 @@ podman build \
     --target builder \
     --jobs 0 \
     --build-arg OWRT_VERSION="$OWRT_VERSION" \
-    --build-arg REPO_URL="$REPO_URL" \
     --build-arg REPO_CHANNEL="$REPO_CHANNEL" \
     --build-arg TARGET="$TARGET" \
     --build-arg NETHSECURITY_VERSION="$NETHSECURITY_VERSION" \
