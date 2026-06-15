@@ -8,11 +8,11 @@ PKG_MAINTAINER:=Darryl Sokoloski <darryl@egloo.ca>
 PKG_LICENSE:=Unlicensed
 
 # Base URL for downloads
-NETIFYD_BASE_URL:=https://updates.nethsecurity.nethserver.org/netifyd-dist/netifyd-$(PKG_VERSION)/25.12.4/$(ARCH)
+NETIFYD_BASE_URL:=https://updates.nethsecurity.nethserver.org/netifyd-dist/netifyd-$(PKG_VERSION)/25.12.4/$(ARCH)_generic
 DL_DIR:=$(DL_DIR)/netifyd-$(PKG_VERSION)-$(ARCH)
 
 # Per-architecture download hashes ($(ARCH) drives both the URL and these hashes)
-ifeq ($(ARCH),aarch64_generic)
+ifeq ($(ARCH),aarch64)
 NETIFYD_HASH_LIBNETIFYD:=5b923c5f2a493846b2981baa78a4e2550f3facb5e33da42bce1fb0a615bd05a1
 NETIFYD_HASH_PLM:=1f6e86a6660bc470b603bc83f7d1d6fc448c1b54eefeeee540c1a4fa03eb4f33
 NETIFYD_HASH_PROC_AGGREGATOR:=11392b6684fe971dac6d1ed916285ecb6aa3746ea3726a76a87e81903bac334d
