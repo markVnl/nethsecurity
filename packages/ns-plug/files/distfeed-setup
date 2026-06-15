@@ -30,7 +30,20 @@ EOF
 else
   rm -f /etc/apk/repositories.d/01-enterprise.list
 fi
+# FIXME: probably better to determine target and arch at buildtime
+if [ -z "$OPENWRT_BOARD" ]; then
+    target="x84/64"
+else
+    target=$OPENWRT_BOARD
+fi
 
+if [ -z "$OPENWRT_ARCH" ]; then
+    package_arch="x84_64"
+else
+    package_arch=$OPENWRT_ARCH
+fi
+
+<<<<<<< HEAD
 # parametrize the distfeeds
 cat << 'EOF' > /etc/apk/repositories.d/distfeeds.list
 https://${endpoint}/${version}/targets/${target_arch}/packages/packages.adb
@@ -38,4 +51,13 @@ https://${endpoint}/${version}/packages/${package_arch}/base/packages.adb
 https://${endpoint}/${version}/packages/${package_arch}/luci/packages.adb
 https://${endpoint}/${version}/packages/${package_arch}/nethsecurity/packages.adb
 https://${endpoint}/${version}/packages/${package_arch}/packages/packages.adb
+=======
+cat << EOF > /etc/opkg/distfeeds.conf
+src/gz nethsecurity_core $base_url/$version/targets/$target/packages
+src/gz nethsecurity_base $base_url/$version/packages/$package_arch/base
+src/gz nethsecurity_luci $base_url/$version/packages/$package_arch/luci
+src/gz nethsecurity_nethsecurity $base_url/$version/packages/$package_arch/nethsecurity
+src/gz nethsecurity_packages $base_url/$version/packages/$package_arch/packages
+src/gz nethsecurity_routing $base_url/$version/packages/$package_arch/routing
+>>>>>>> f68565f0 (ns-plug: avoid hardcoded target and arch in distfeed)
 EOF
