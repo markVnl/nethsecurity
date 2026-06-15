@@ -34,6 +34,10 @@ RUN apt-get update \
         quilt \
         sudo \
         vim
+        python3-setuptools \
+        swig \
+        python3-pyelftools \
+        python3-dev
 
 RUN groupadd -g 1000 'buildbot' \
     && useradd -m -s '/bin/bash' -u 1000 -g 1000 'buildbot' \
