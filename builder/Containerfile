@@ -33,7 +33,7 @@ RUN apt-get update \
         less \
         quilt \
         sudo \
-        vim
+        vim \
         python3-setuptools \
         swig \
         python3-pyelftools \
