@@ -7,7 +7,7 @@
 
 set -e
 
-rom_part=$(lsblk -l --json | jq -r '.blockdevices[] | select(any(.mountpoints[]; . == "/boot")) | .name')
+rom_part=$(lsblk -l --json | jq -r '.blockdevices[] | select(any(.mountpoints[]; . == "/rom")) | .name')
 rom_disk=$(lsblk -lno pkname /dev/$rom_part)
 
 data_part=$(lsblk -l --json | jq -r '.blockdevices[] | select(any(.mountpoints[]; . == "/mnt/data")) | .name')
